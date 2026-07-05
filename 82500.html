@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>৫ম অধ্যায় রিভিশন </title>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #f8fafc; color: #1e293b; padding: 10px; font-family: system-ui, -apple-system, sans-serif; }
+        @media (max-width: 600px) {
+            body { padding: 4px; }
+        }
+        
+        /* Full Display Width Setup inside output file - Responsive Edge margins minimized */
+        .user-top-nav { width: 100%; margin: 0 auto 12px auto; display: flex; align-items: center; }
+        .user-back-btn { display: inline-flex; align-items: center; gap: 6px; background: #64748b; color: white; text-decoration: none; padding: 7px 14px; border-radius: 6px; font-weight: 600; font-size: 13px; transition: background 0.2s; }
+        .user-back-btn:hover { background: #475569; }
+        
+        .wrapper { width: 100%; margin: 0 auto; background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        @media (max-width: 600px) {
+            .wrapper { padding: 12px; } /* Zero padding waste */
+        }
+        .header-box { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; }
+        .main-title { font-size: 20px; color: #4f46e5; margin-bottom: 5px; }
+        .sub-meta { font-size: 14.5px; color: #64748b; }
+        .topic-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; justify-content: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 15px; }
+        .topic-trigger { background: #f1f5f9; color: #475569; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 14px; }
+        .topic-trigger.active { background: #4f46e5; color: white; }
+        .content-body { background: #ffffff; min-height: 120px; font-size: 16px; }
+        .block-item { margin-bottom: 22px; line-height: 1.6; word-wrap: break-word; }
+        
+        .hidden-ans { background-color: #334155; border: 1px solid #334155; color: #334155; padding: 2px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.1s; display: inline-block; user-select: none; }
+        .hidden-ans.reveal { background-color: #dcfce7; border: 1px solid #22c55e; color: #15803d; }
+        .content-img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 8px; display: block; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+<div class="user-top-nav">
+    <a href="index.html" class="user-back-btn">⬅️ হোমপেজ</a>
+</div>
+<div class="wrapper">
+    <div class="header-box">
+        <h2 class="main-title">৫ম অধ্যায় রিভিশন </h2>
+        <div class="sub-meta">বিজ্ঞান   • ৫ম</div>
+    </div>
+    <div id="topicButtons" class="topic-bar"></div>
+    <div id="mainContentArea" class="content-body"></div>
+</div>
+<script>
+    const dataset = [{"id":"topic_1783080277870yuktn","title":"পাঠ(১-৩)","blocks":[{"id":"block_1783080288103iddo3","type":"text","value":"৭. নিচের কোনটি উদ্ভিদের বৃদ্ধি প্রতিবন্ধক হরমোন হিসেবে কাজ করে?\n(ক) অক্সিন (খ) জিব্বেরেলিন (গ) সাইটোকাইনিন (ঘ) ইথিলিন\nউত্তর: ঘ\n"}]},{"id":"topic_1783232819265gvbk8","title":"পাঠ(৩ ও ৪)","blocks":[{"id":"block_17832328511960wtuk","type":"text","value":"প\nর \n<b>বাতিল</b>"}]}];
+    let currentActiveId = null;
+    window.onload = function() {
+        if(dataset && dataset.length > 0) {
+            setupNavigation();
+        } else {
+            document.getElementById('mainContentArea').innerHTML = '<p style="text-align:center;color:#94a3b8;">কোনো কন্টেন্ট পাওয়া যায়নি।</p>';
+        }
+    };
+    function setupNavigation() {
+        const container = document.getElementById('topicButtons');
+        currentActiveId = dataset[0].id;
+        dataset.forEach(topic => {
+            const btn = document.createElement('button');
+            btn.className = 'topic-trigger';
+            btn.id = 'btn_' + topic.id;
+            btn.innerText = topic.title || 'পাঠ';
+            btn.onclick = () => switchTopic(topic.id);
+            container.appendChild(btn);
+        });
+        
+        renderActiveContent();
+    }
+    function switchTopic(id) {
+        currentActiveId = id;
+        renderActiveContent();
+    }
+    function renderActiveContent() {
+        document.querySelectorAll('.topic-trigger').forEach(b => b.classList.remove('active'));
+        const activeBtn = document.getElementById('btn_' + currentActiveId);
+        if(activeBtn) activeBtn.classList.add('active');
+        const displayArea = document.getElementById('mainContentArea');
+        displayArea.innerHTML = '';
+        const targetTopic = dataset.find(t => t.id === currentActiveId);
+        if(targetTopic && targetTopic.blocks.length > 0) {
+            targetTopic.blocks.forEach(block => {
+                if(!block.value.trim()) return;
+                const div = document.createElement('div');
+                div.className = 'block-item';
+                if(block.type === 'text') {
+                    let text = escapeData(block.value).replace(/\n/g, '<br>');
+                    text = text.replace(/(উত্তর:\s*[কখগঘ])/g, '<span class="hidden-ans" onclick="reveal(this)">$1</span>');
+                    div.innerHTML = text;
+                } else if(block.type === 'image') {
+                    div.innerHTML = `<img src="${escapeData(block.value)}" class="content-img" alt="Study Image" onerror="this.style.display='none'">`;
+                }
+                displayArea.appendChild(div);
+            });
+        } else {
+            displayArea.innerHTML = '<p style="text-align:center;color:#94a3b8;padding-top:20px;">এই পাঠে কোনো প্রশ্ন নেই।</p>';
+        }
+        if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise();
+        }
+    }
+    function reveal(el) {
+        if (el.classList.contains('reveal')) return;
+        el.classList.add('reveal');
+        setTimeout(() => el.classList.remove('reveal'), 2000);
+    }
+    function escapeData(text) {
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
+</script>
+</body>
+</html>
