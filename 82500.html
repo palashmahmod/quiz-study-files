@@ -11,7 +11,7 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 1; }
         body { background-color: #f8fafc; color: #1e293b; padding: 10px; font-family: system-ui, -apple-system, sans-serif; }
         @media (max-width: 600px) {
             body { padding: 4px; }
@@ -51,7 +51,7 @@
     <div id="mainContentArea" class="content-body"></div>
 </div>
 <script>
-    const dataset = [{"id":"topic_1783080277870yuktn","title":"পাঠ(১-৩)","blocks":[{"id":"block_1783080288103iddo3","type":"text","value":"৭. নিচের কোনটি উদ্ভিদের বৃদ্ধি প্রতিবন্ধক হরমোন হিসেবে কাজ করে? ক\n(ক) অক্সিন (খ) জিব্বেরেলিন (গ) সাইটোকাইনিন (ঘ) ইথিলিন\nউত্তর: ঘ"},{"id":"block_1783278599071sbzm0","type":"text","value":"12px 2"}]},{"id":"topic_1783232819265gvbk8","title":"পাঠ(৩ ও ৪)","blocks":[{"id":"block_17832328511960wtuk","type":"text","value":"প\nর ৩১\n\nউত্তর: ক"},{"id":"block_1783278066648300zn","type":"text","value":"কা"}]}];
+    const dataset = [{"id":"topic_1783080277870yuktn","title":"পাঠ(১-৩)","blocks":[{"id":"block_1783080288103iddo3","type":"text","value":"৭. নিচের কোনটি উদ্ভিদের বৃদ্ধি প্রতিবন্ধক হরমোন হিসেবে কাজ করে? ক\n(ক) অক্সিন (খ) জিব্বেরেলিন (গ) সাইটোকাইনিন (ঘ) ইথিলিন\nউত্তর: ঘ\n৮. আমাদের"},{"id":"block_1783278599071sbzm0","type":"text","value":"12px 2\n$\\frac{1}{2} + \\sqrt 3  + \\sqrt 4$\n$\\sqrt {5}$\nআমাদের দেশের নাম খন কববক্বিস করা  কতনররে\n<center><b><u>রানা</u></b></center>\nউত্তর: গ"}]},{"id":"topic_1783232819265gvbk8","title":"পাঠ(৩ ও ৪)","blocks":[{"id":"block_17832328511960wtuk","type":"text","value":"প\nর ৩১\n\nউত্তর: ক"},{"id":"block_1783278066648300zn","type":"text","value":"কা"}]}];
     let currentActiveId = null;
     window.onload = function() {
         if(dataset && dataset.length > 0) {
@@ -91,8 +91,11 @@
                 const div = document.createElement('div');
                 div.className = 'block-item';
                 if(block.type === 'text') {
-                    let text = escapeData(block.value).replace(/\n/g, '<br>');
-                    text = text.replace(/(উত্তর:\s*[কখগঘ])/g, '<span class="hidden-ans" onclick="reveal(this)">$1</span>');
+                    let text = block.value; 
+																	text = text.replace(/(উত্তর:s*[কখগঘ])/g, '####ANS_START####$1####ANS_END####');
+																	text = escapeData(text).replace(/\n/g, '<br>');
+																	text = text .replace(/&lt;b&gt;/gi, '<b>').replace(/&lt;/b&gt;/gi, '</b>') .replace(/&lt;u&gt;/gi, '<u>').replace(/&lt;/u&gt;/gi, '</u>') .replace(/&lt;i&gt;/gi, '<i>').replace(/&lt;/i&gt;/gi, '</i>') .replace(/&lt;center&gt;/gi, '<center>').replace(/&lt;/center&gt;/gi, '</center>') .replace(/[color=(.*?)](.*?)[/color]/gi, '<span style="color:$1;">$2</span>');
+																	text = text .replace(/####ANS_START####/g, '<span class="hidden-ans" onclick="reveal(this)">') .replace(/####ANS_END####/g, '</span>');
                     div.innerHTML = text;
                 } else if(block.type === 'image') {
                     div.innerHTML = `<img src="${escapeData(block.value)}" class="content-img" alt="Study Image" onerror="this.style.display='none'">`;
