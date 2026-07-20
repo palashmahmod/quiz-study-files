@@ -33,7 +33,7 @@
         .topic-trigger { background: #f1f5f9; color: #475569; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 14px; }
         .topic-trigger.active { background: #4f46e5; color: white; }
         .content-body { background: #ffffff; min-height: 120px; font-size: 16px; }
-        .block-item { font-size: 12px; margin-bottom: 22px; line-height: 1.6; word-wrap: break-word; }
+        .block-item { font-size: 12px; margin-bottom: 1.6; line-height: 1.6; word-wrap: break-word; }
         
         .hidden-ans { background-color: #334155; border: 1px solid #334155; color: #334155; padding: 2px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.1s; display: inline-block; user-select: none; }
         .hidden-ans.reveal { background-color: #dcfce7; border: 1px solid #22c55e; color: #15803d; }
@@ -51,7 +51,7 @@
     <div id="mainContentArea" class="content-body"></div>
 </div>
 <script>
-    const dataset = [{"id":"topic_1783080277870yuktn","title":"পাঠ(১-৩)","blocks":[{"id":"block_1783080288103iddo3","type":"text","value":"৭. নিচের কোনটি উদ্ভিদের বৃদ্ধি প্রতিবন্ধক হরমোন হিসেবে কাজ করে? ক\n(ক) অক্সিন (খ) জিব্বেরেলিন (গ) সাইটোকাইনিন (ঘ) ইথিলিন\nউত্তর: ঘ\n৮. আমাদের"},{"id":"block_1783278599071sbzm0","type":"text","value":"12px 2\n$\\frac{1}{2} + \\sqrt 3  + \\sqrt 4$\n$\\sqrt {5}$\nআমাদের দেশের নাম খন কববক্বিস করা  কতনররে\n<center><b><u>রানা</u></b></center>\nউত্তর: গ"}]},{"id":"topic_1783232819265gvbk8","title":"পাঠ(৩ ও ৪)","blocks":[{"id":"block_17832328511960wtuk","type":"text","value":"প\nর ৩১\n\nউত্তর: ক"},{"id":"block_1783278066648300zn","type":"text","value":"কা"}]}];
+    const dataset = [{"id":"topic_1783080277870yuktn","title":"পাঠ(১-৩)","blocks":[{"id":"block_1783080288103iddo3","type":"text","value":"৭. নিচের কোনটি উদ্ভিদের বৃদ্ধি প্রতিবন্ধক হরমোন হিসেবে কাজ করে? ক\n(ক) অক্সিন (খ) জিব্বেরেলিন (গ) সাইটোকাইনিন (ঘ) ইথিলিন\nউত্তর: ঘ\n৮. আমাদের ১"},{"id":"block_1783278599071sbzm0","type":"text","value":"12px 2\n$\\frac{1}{2} + \\sqrt 3  + \\sqrt 4$\n$\\sqrt {5}$\nআমাদের দেশের নাম খন কববক্বিস করা  কতনররে\n<center><b><u>রানা</u></b></center>\nউত্তর: গ"}]},{"id":"topic_1783232819265gvbk8","title":"পাঠ(৩ ও ৪)","blocks":[{"id":"block_17832328511960wtuk","type":"text","value":"প\nর ৩১\n\nউত্তর: ক"},{"id":"block_1783278066648300zn","type":"text","value":"কা"}]}];
     let currentActiveId = null;
     window.onload = function() {
         if(dataset && dataset.length > 0) {
