@@ -91,11 +91,8 @@
                 const div = document.createElement('div');
                 div.className = 'block-item';
                 if(block.type === 'text') {
-                    let text = block.value; 
-																	text = text.replace(/(উত্তর:s*[কখগঘ])/g, '####ANS_START####$1####ANS_END####');
-																	text = escapeData(text).replace(/\n/g, '<br>');
-																	text = text .replace(/&lt;b&gt;/gi, '<b>').replace(/&lt;/b&gt;/gi, '</b>') .replace(/&lt;u&gt;/gi, '<u>').replace(/&lt;/u&gt;/gi, '</u>') .replace(/&lt;i&gt;/gi, '<i>').replace(/&lt;/i&gt;/gi, '</i>') .replace(/&lt;center&gt;/gi, '<center>').replace(/&lt;/center&gt;/gi, '</center>') .replace(/[color=(.*?)](.*?)[/color]/gi, '<span style="color:$1;">$2</span>');
-																	text = text .replace(/####ANS_START####/g, '<span class="hidden-ans" onclick="reveal(this)">') .replace(/####ANS_END####/g, '</span>');
+                    let text = escapeData(block.value).replace(/\n/g, '<br>');
+                    text = text.replace(/(উত্তর:\s*[কখগঘ])/g, '<span class="hidden-ans" onclick="reveal(this)">$1</span>');
                     div.innerHTML = text;
                 } else if(block.type === 'image') {
                     div.innerHTML = `<img src="${escapeData(block.value)}" class="content-img" alt="Study Image" onerror="this.style.display='none'">`;
