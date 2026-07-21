@@ -91,10 +91,11 @@
                 const div = document.createElement('div');
                 div.className = 'block-item';
                 if(block.type === 'text') {
-                    let text = escapeData(block.value).replace(/\n/g, '<br>');
-                    text = text.replace(/(উত্তর:\s*[কখগঘ])/g, '<span class="hidden-ans" onclick="reveal(this)">$1</span>');
-                    div.innerHTML = text;
-                } else if(block.type === 'image') {
+    let text = block.value.replace(/
+/g, '<br>');
+    text = text.replace(/(উত্তর:s*[কখগঘ])/g, '<span class="hidden-ans" onclick="reveal(this)">$1</span>');
+    div.innerHTML = text;
+} else if(block.type === 'image') {
                     div.innerHTML = `<img src="${escapeData(block.value)}" class="content-img" alt="Study Image" onerror="this.style.display='none'">`;
                 }
                 displayArea.appendChild(div);
@@ -112,9 +113,9 @@
         setTimeout(() => el.classList.remove('reveal'), 2000);
     }
     function escapeData(text) {
-        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-        return text.replace(/[&<>"']/g, m => map[m]);
-    }
+    if (!text) return '';
+    return text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
 </script>
 </body>
 </html>
