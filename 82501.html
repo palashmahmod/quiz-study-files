@@ -85,34 +85,23 @@
         const displayArea = document.getElementById('mainContentArea');
         displayArea.innerHTML = '';
         const targetTopic = dataset.find(t => t.id === currentActiveId);
-        
-        if(targetTopic && targetTopic.blocks && targetTopic.blocks.length > 0) {
+        if(targetTopic && targetTopic.blocks.length > 0) {
             targetTopic.blocks.forEach(block => {
-                if(!block.value || !block.value.trim()) return;
+                if(!block.value.trim()) return;
                 const div = document.createElement('div');
                 div.className = 'block-item';
-                
                 if(block.type === 'text') {
-                    // 
- এর সমস্যা দূর করতে split এবং join ব্যবহার করা হলো
-                    let text = block.value.split('
-').join('<br>');
-                    text = text.replace(/(উত্তর:s*[কখগঘ])/g, '<span class="hidden-ans" onclick="reveal(this)">$1</span>');
+                    let text = escapeData(block.value).replace(/\n/g, '<br>');
+                    text = text.replace(/(উত্তর:\s*[কখগঘ])/g, '<span class="hidden-ans" onclick="reveal(this)">$1</span>');
                     div.innerHTML = text;
                 } else if(block.type === 'image') {
-                    const img = document.createElement('img');
-                    img.src = block.value;
-                    img.className = 'content-img';
-                    img.alt = 'Study Image';
-                    img.onerror = function() { this.style.display = 'none'; };
-                    div.appendChild(img);
+                    div.innerHTML = `<img src="${escapeData(block.value)}" class="content-img" alt="Study Image" onerror="this.style.display='none'">`;
                 }
                 displayArea.appendChild(div);
             });
         } else {
             displayArea.innerHTML = '<p style="text-align:center;color:#94a3b8;padding-top:20px;">এই পাঠে কোনো প্রশ্ন নেই।</p>';
         }
-        
         if (window.MathJax && MathJax.typesetPromise) {
             MathJax.typesetPromise();
         }
@@ -123,9 +112,9 @@
         setTimeout(() => el.classList.remove('reveal'), 2000);
     }
     function escapeData(text) {
-    if (!text) return '';
-    return text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-}
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
 </script>
 </body>
 </html>
